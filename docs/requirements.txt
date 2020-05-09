@@ -3,3 +3,4 @@ sphinxcontrib-contentui
 wheel
 pbr
 sphinxcontrib-swaggerui
+sphinx_rtd_theme
