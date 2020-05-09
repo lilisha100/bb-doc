@@ -18,11 +18,9 @@ jobs:
       script: sphinx-build -b html docs _build/html # build the docs
     - stage: deploy
       name: Deploy to GitHub Pages
-      if: (NOT type IN (pull_request)) AND (branch = master) # only deploy if merging on master
       script: sphinx-build -b html docs _build/html
       deploy:
         provider: pages # deploy on github pages
         skip_cleanup: true
-        github_token: h7_WUbtaTLscQpsNtNMTMQ  # defined via the Travis interface
         local_dir: _build/html
 
