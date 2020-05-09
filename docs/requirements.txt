@@ -1,0 +1,5 @@
+sphinxcontrib-mermaid
+sphinxcontrib-contentui
+wheel
+pbr
+sphinxcontrib-swaggerui
