@@ -24,6 +24,8 @@ jobs:
         skip_cleanup: true
         github_token: $GH_TOKEN
         on:
-          branch: master
+          branch: 
+            - master
+            - doctest-branch
         local_dir: _build/html/
 
