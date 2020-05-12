@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: Task Manager
+tags:
+  - name: task
+    description: Creating tasks and checking tasks' status
+  - name: result
+    description: Access to tasks' results
+paths:
+  /tasks:
+    post:
+      tags:
+        - task
+      summary: Add a function to execution queue
+      responses:
+        "201":
+          description: "Task has been created, the function is added to execution queue"
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/Task'
+  '/tasks/{taskId}':
+    get:
+      tags:
+        - task
+      summary: Get task by ID
+      description: Returns a single task
+      parameters:
+        - name: taskId
+          in: path
+          description: ID of task to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid ID supplied
+  '/tasks/{taskId}/result':
+    get:
+      tags:
+        - result
+      summary: Get a result of a task by its ID
+      description: Returns a single task result
+      parameters:
+        - name: taskId
+          in: path
+          description: ID of task of result to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Result not found. Task is not found or pending.
+components:
+  schemas:
+    Task:
+      type: object
+      required:
+        - type
+        - function
+        - arguments
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: "string"
+          enum:
+            - "fas"
+            - "f3ml"
+            - "python"
+        function:
+          type: string
+        arguments:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+              - type: boolean
+              - type: array
+        status:
+          type: string
+          description: status of the function execution
+          enum:
+            - done
+            - pending
+            - failed
+        created:
+          type: string
+          format: date-time
+        put_to_execution:
+          type: string
+          format: date-time
+        calculation_time:
+          type: number
+    Result:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - succeeded
+            - failed
+        result:
+          type: object
+        errors:
+          type: object
+  requestBodies:
+    Task:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+      description: A function signatire that needs to be added to the tasks queue 
+      required: true
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/mshalenyi-fincad/task/1.0.0
