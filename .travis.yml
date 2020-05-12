@@ -23,7 +23,7 @@ jobs:
         provider: pages # deploy on github pages
         skip_cleanup: true
         repo: $GH_REPO
-        github_token: $GH_TOKEN_BB
+        github_token: $GH_TOKEN
         on:
           branch: master
         local_dir: _build/html/
