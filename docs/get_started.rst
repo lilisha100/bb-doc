@@ -8,6 +8,8 @@ FINCAD Analytics Suite is an analytics library containing approximately 2000 fun
     - Curves - build and manipulate curves from market data
     - Pricing and risk - perform mark-to-market valuation, carry out sensitivity exposure and scenario analysis, perform yield & price analysis, and wider risk management tasks such as value at risk
     - Custom analysis: the library also contains many useful utility functions that facilitate pricing and custom analysis on instruments with more bespoke payoffs and complex product structuring
+    
+    please don't do this
 	
 .. mermaid::
 
