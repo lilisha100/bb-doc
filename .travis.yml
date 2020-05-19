@@ -6,6 +6,8 @@ python:
     - 3.6
 install:
     - pip install -r docs/requirements.txt
+    - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v2.1.0 # install vale
+    - export PATH="./bin:$PATH"
 script:
     - skip # Travis requires a `script` property, but we do not need it
 stages:
@@ -16,6 +18,8 @@ jobs:
     - stage: build and test # This stage builds and lints in parallel
       name: Build
       script: sphinx-build -b html docs _build/html # build the docs
+    - script: vale --minAlertLevel error docs # run vale
+      name: Test  
     - stage: deploy
       name: Deploy to GitHub Pages
       script: sphinx-build -b html docs _build/html
